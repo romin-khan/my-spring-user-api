@@ -6,6 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    // That's it. No code inside. 
-    // You now have save(), findById(), findAll(), and deleteById() for free.
+    
 }
