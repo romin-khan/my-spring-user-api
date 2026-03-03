@@ -1,9 +1,24 @@
 spring:
   application:
     name: myApp
-debug: true
+  h2:
+    console:
+      enabled: true
+  datasource:
+    url: jdbc:h2:file:./data/sampledb
+    driverClassName: org.h2.Driver
+    username: romin
+    password: password
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
 server:
   port: 8081
+
 logging:
   pattern:
-    console: "%clr(%d{HH:mm:ss}){faint} %clr(%-5p) %m%n"  
+    console: "%clr(%d{HH:mm:ss}){faint} %clr(%-5p) %m%n"
+
+debug: true

@@ -1,55 +1,46 @@
 package com.romin.myApp.service;
 
 import com.romin.myApp.model.User;
+import com.romin.myApp.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class UserService {
+
+    @Autowired
+    private UserRepository userRepository; // This connects to the DB
+
+    public List<User> getAllUsers() {
+        return userRepository.findAll(); // Logic is handled by JPA
+    }
+
+    public User addUser(User user) {
+        return userRepository.save(user); // Logic is handled by JPA
+    }
+
+    public User getUserById(Long id) {
+        return userRepository.findById(id).orElse(null);
+    }
+
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
+    }
+
+    public void deleteAllUser(){
+        userRepository.deleteAll();
+    }
     
-    private final List<User> database = new ArrayList<>();
+    public User updateUser(Long id, User updatedUser) {
+        return userRepository.findById(id).map(user -> {
 
-    public List<User> findAll() {
-        return database;
-    }
+            if (updatedUser.getName() != null) user.setName(updatedUser.getName());
+            if (updatedUser.getEmail() != null) user.setEmail(updatedUser.getEmail());
+            if (updatedUser.getContactNo() != null) user.setContactNo(updatedUser.getContactNo());
 
-    public User findSpecificUser(long id) {
-    return database.stream()
-            .filter(user -> user.getId() == id)
-            .findFirst()
-            .orElse(null);
-    }
+            return userRepository.save(user);
 
-    public void save(User user) {
-        database.add(user);
-    }
-
-    public String removeSpecificUser(long id){
-        boolean remove =  database.removeIf(user -> user.getId() == id);
-        return remove ? "user deleted" : "user not found";
-    }
-
-    public String removeAll() {
-        database.clear();
-        return "deleted";
-    }
-
-    public String UpdateUser(long id, User incomingUser){
-        User existingUser = findSpecificUser(id);
-
-        if(existingUser == null){ return "User not found";}
-
-        if(incomingUser.getName() != null){
-            existingUser.setName(incomingUser.getName());
-        }
-        if(incomingUser.getEmail() != null){
-            existingUser.setEmail(incomingUser.getEmail());
-        }
-        if(incomingUser.getContactNo() != null){
-            existingUser.setContactNo(incomingUser.getContactNo());
-        }
-        
-        return "User update succesful";
+        }).orElse(null);
     }
 }

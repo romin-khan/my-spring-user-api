@@ -21,30 +21,30 @@ public class UserController {
 
     @GetMapping
     public List<User> getAll() {
-        return userService.findAll();
+        return userService.getAllUsers();
     }
     @GetMapping("/{id}")
-    public User getspecificUser(@PathVariable long id){
-        return userService.findSpecificUser(id);
+    public User getspecificUser(@PathVariable Long id){
+        return userService.getUserById(id);
     }
 
     @PostMapping
     public void create(@RequestBody User user) {
-        userService.save(user);
+        userService.addUser(user);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteSpecificUser(@PathVariable long id) {
-        userService.removeSpecificUser(id);
+    public void deleteSpecificUser(@PathVariable Long id) {
+        userService.deleteUser(id);
     }
 
     @DeleteMapping
     public void removeAll(){
-        userService.removeAll();
+        userService.deleteAllUser();
     }
     
     @PutMapping("/{id}")
-    public String updateUser(@PathVariable long id, @RequestBody User user) {
-        return userService.UpdateUser(id, user);
+    public User updateUser(@PathVariable Long id, @RequestBody User user) {
+        return userService.updateUser(id, user);
     }
 }
