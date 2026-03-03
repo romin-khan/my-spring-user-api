@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: myApp
+debug: true
+server:
+  port: 8081
+logging:
+  pattern:
+    console: "%clr(%d{HH:mm:ss}){faint} %clr(%-5p) %m%n"  
