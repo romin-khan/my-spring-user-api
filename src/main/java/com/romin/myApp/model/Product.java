@@ -11,9 +11,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 @Entity
 @Table(name = "products")
 public class Product {
@@ -25,5 +25,5 @@ public class Product {
     private String discription;
     private String name;
     private BigDecimal price;
-    private Integer Quantity;
+    private Integer quantity;
 }
